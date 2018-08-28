@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.ArrayMap
-import androidx.annotation.StyleRes
 import kotlin.reflect.KClass
 
 internal val activities = ArrayMap<KClass<out Activity>, String>()
@@ -17,7 +16,7 @@ private const val PREFS_NAME = "io.daio.dresscode.prefs"
 private const val PREFS_KEY = "io.daio.dresscode.currentdresscode"
 
 data class DressCode(val name: String,
-                     @StyleRes val themeId: Int)
+                     val themeId: Int)
 
 /**
  * Get the current dressCode set for the application.
