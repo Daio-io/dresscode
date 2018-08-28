@@ -6,6 +6,8 @@ Tiny lightweight Kotlin Android library to change theme at runtime.
 - Very simple to use. 
 - DressCode uses only extension functions to enable runtime theme changes avoiding the need to create some kind of `BaseThemeActivity` class.
 - Declare your Themes as normal in `styles.xml`
+- Automatically updates activity themes.
+- Remembers the current theme between app launches.
 
 ## Add DressCode
 
@@ -34,7 +36,7 @@ Then from your Activities simply call `matchDressCode` before `setContentView`.
 
 ```kotlin
     override fun onCreate(savedInstanceState: Bundle?) {
-        matchDressCode()
+        matchDressCode() // Call me first otherwise who knows that 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
