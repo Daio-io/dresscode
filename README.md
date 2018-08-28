@@ -37,7 +37,7 @@ Then from your Activities simply call `matchDressCode` before `setContentView`.
 
 ```kotlin
     override fun onCreate(savedInstanceState: Bundle?) {
-        matchDressCode() // Call me first otherwise who knows that 
+        matchDressCode() // Call me first or someone may come as a 🤡 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
