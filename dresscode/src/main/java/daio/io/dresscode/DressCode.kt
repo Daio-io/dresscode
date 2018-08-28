@@ -23,7 +23,7 @@ data class DressCode(val name: String,
  * Get the current dressCode set for the application.
  *
  * Set a new dress code by name. The dress code must have been registered
- * via the [register] method before attempting to set. Set this will recreate your Activity
+ * via the [declareDressCode] method before attempting to set. Set this will recreate your Activity
  * to apply the new theme. Make sure you have also setup DressCode in
  * your Activity by calling [matchDressCode]
  */
@@ -44,25 +44,25 @@ private fun checkDressCode(value: String) {
 
 
 /**
- * To register your app with DressCodes you need to call [register] from your Application class.
+ * To declareDressCode your app with DressCodes you need to call [declareDressCode] from your Application class.
  * Give your dressCodes a name and the themeId defined in your styles.xml
  * This method must be called before calling [matchDressCode].
  * If you try to change dresscode to a theme that does not exits it will
- * throw an exception so make sure you register all your dress code themes here.
+ * throw an exception so make sure you declareDressCode all your dress code themes here.
  *
  * @param application [Application] class
  * @param dressCodes vararg list of [DressCode] containing name and a resource id style. 0n calling
- * this if no prior theme has been set it will use the first [DressCode] you supply as the default.
+ * this, if no prior theme has been set it will use the first [DressCode] you supply as the default.
  */
-fun register(application: Application,
-             vararg dressCodes: DressCode) {
+fun declareDressCode(application: Application,
+                     vararg dressCodes: DressCode) {
 
     availableDressCodes = ArrayMap<String, Int>(dressCodes.size).apply {
         dressCodes.forEach { put(it.name, it.themeId) }
     }
 
     themePreferences = application.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    currentDressCode = themePreferences.getString(PREFS_KEY, null) ?: availableDressCodes.keyAt(0)
+    currentDressCode = themePreferences.getString(PREFS_KEY, null) ?: dressCodes[0].name
     application.registerActivityLifecycleCallbacks(LifecycleListener())
 }
 
