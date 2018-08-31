@@ -9,8 +9,9 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        declareDressCode(this,
-                DressCode("themeone", R.style.ThemeOne),
-                DressCode("themetwo", R.style.ThemeTwo))
+        declareDressCode(
+            DressCode("ThemeOne", R.style.ThemeOne),
+            DressCode("ThemeTwo", R.style.ThemeTwo)
+        )
     }
 }
