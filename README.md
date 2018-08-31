@@ -28,7 +28,7 @@ allprojects {
 In your Android Application class `onCreate` call the library function to set your dress codes 
 
 ```kotlin
-declareDressCode(this, DressCode("themeone", R.style.ThemeOne),
+declareDressCode(DressCode("themeone", R.style.ThemeOne),
                 DressCode("themetwo", R.style.ThemeTwo),
                 DressCode("themethree", R.style.ThemeThree))
 ```
@@ -44,7 +44,7 @@ Then from your Activities simply call `matchDressCode` before `setContentView`.
 ```
 DressCode will automatically manage applying the new theme when it has been changed. So a simple call from within an Activity to:
 
-`dressCodeName = "themetwo"`
+`dressCodeStyleId = R.style.ThemeTwo`
 
 Will just apply the new theme to all Activities that call `matchDressCode()`.
 
