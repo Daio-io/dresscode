@@ -11,8 +11,8 @@ internal class LifecycleListener : Application.ActivityLifecycleCallbacks {
     }
 
     override fun onActivityResumed(activity: Activity) {
-        val theme = activities[activity::class] ?: return
-        if (activity.dressCodeName != theme) activity.recreate()
+        val dressCodeOnActivity = activities[activity::class] ?: return
+        if (currentDressCode != dressCodeOnActivity) activity.recreate()
     }
 
     override fun onActivityStarted(activity: Activity?) {
