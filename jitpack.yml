@@ -1,0 +1,5 @@
+jdk:
+- openjdk7
+install:
+- ./gradlew dresscode:detektCheck
+- ./gradlew install
