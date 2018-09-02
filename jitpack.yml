@@ -2,4 +2,4 @@ jdk:
 - openjdk7
 install:
 - ./gradlew dresscode:detektCheck
-- mvn install -DskipTests
+- ./gradlew install
