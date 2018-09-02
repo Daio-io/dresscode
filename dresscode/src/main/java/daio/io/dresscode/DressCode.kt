@@ -44,8 +44,9 @@ var Activity.dressCodeStyleId: Int
     }
 
 private fun checkDressCode(value: String) {
-    if (availableDressCodes[value] == null)
-        throw RuntimeException("Dress Code $value does not exist")
+    if (availableDressCodes[value] == null) {
+        throw DressCodeNotRegisteredException("Dress Code $value does not exist")
+    }
 }
 
 
