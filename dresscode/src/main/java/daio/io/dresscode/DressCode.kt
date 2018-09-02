@@ -75,7 +75,7 @@ fun Application.declareDressCode(
     currentDressCode = themePreferences.getString(PREFS_KEY, null) ?:
             resources.getResourceEntryName(dressCodes[0].themeId)
 
-    registerActivityLifecycleCallbacks(LifecycleListener())
+    registerActivityLifecycleCallbacks(LifeCycleListener())
 }
 
 /**

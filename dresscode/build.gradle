@@ -2,8 +2,11 @@ plugins {
     id "io.gitlab.arturbosch.detekt" version "1.0.0.RC7-3"
 }
 
+apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+
+group='com.github.Daio-io'
 
 android {
     compileSdkVersion 28

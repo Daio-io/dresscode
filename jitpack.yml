@@ -1,0 +1,6 @@
+jdk:
+- openjdk7
+before_install:
+- ./gradlew detektCheck
+install:
+- mvn clean install -DskipTests
