@@ -44,7 +44,7 @@ repositories {
 detekt {
     version = "1.0.0.RC7-3"
     defaultProfile {
-        input = file("./src/main/java")
+        input = file("src/main/java")
         config = file("default-detekt-config.yml")
         filters = ".*/resources/.*,.*/build/.*"
     }

@@ -13,4 +13,4 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-script:  ./gradlew detektCheck
+script:  ./gradlew build install detektCheck
