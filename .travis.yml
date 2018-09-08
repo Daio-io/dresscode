@@ -15,4 +15,4 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-script:  ./gradlew build install detektCheck
+script:  ./gradlew dresscode:build dresscode:install dresscode:detektCheck
