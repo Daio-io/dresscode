@@ -46,5 +46,6 @@ detekt {
     defaultProfile {
         input = file("$projectDir/src/main/java")
         config = file("default-detekt-config.yml")
+        filters = ""
     }
 }
