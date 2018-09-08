@@ -10,6 +10,13 @@ Tiny lightweight Kotlin Android library to change theme at runtime.
 - Automatically updates activity themes.
 - Remembers the current theme between app launches.
 
+#### Used By:
+<a href ="https://play.google.com/store/apps/details?id=studio.goodegg.capsule">
+  <img width="70" src="https://lh3.googleusercontent.com/YjY4BpK9K9M_GzdJE-16MftRKZMbp51yHTSXVjMJ1pT2tqlnNE6ype2yAG7VRrOFgnE=s360">
+</a>
+
+Make a pull request if you want your app in this section
+
 ## Add DressCode
 
 ```groovy
