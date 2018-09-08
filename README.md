@@ -1,5 +1,5 @@
 # dresscode 👔 
-[![](https://jitpack.io/v/Daio-io/dresscode.svg)](https://jitpack.io/#Daio-io/dresscode)
+[![](https://jitpack.io/v/Daio-io/dresscode.svg)](https://jitpack.io/#Daio-io/dresscode) [![codebeat badge](https://codebeat.co/badges/c4f32440-60e4-4878-820b-b258c1cb8fc8)](https://codebeat.co/projects/github-com-daio-io-dresscode-master)
 
 Tiny lightweight Kotlin Android library to change theme at runtime. 
 
