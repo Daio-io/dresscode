@@ -15,7 +15,11 @@ android:
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-  before_script:
+env:
+  global:
+  - ADB_INSTALL_TIMEOUT=8
+
+before_script:
   - echo no | android create avd --force -n test -t android-28 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
