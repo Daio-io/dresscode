@@ -3,16 +3,16 @@ jdk: oraclejdk8
 
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-28.0.0
-    - build-tools-28.0.1
-    - build-tools-28.0.2
-    - android-28
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-28.0.0
+  - build-tools-28.0.1
+  - build-tools-28.0.2
+  - android-28
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-script:  ./gradlew dresscode:build dresscode:install dresscode:detektCheck
+script:  ./gradlew dresscodetests:test dresscode:build dresscode:install dresscode:detektCheck

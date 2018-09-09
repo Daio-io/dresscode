@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryThemeTwo">#3A3D3A</color>
+    <color name="colorPrimaryDarkThemeTwo">#28282B</color>
+    <color name="colorAccentThemeTwo">#26BA99</color>
+    <color name="fadedColorAccentThemeTwo">#6626BA99</color>
+    <color name="colorBackgroundThemeTwo">#2D2D30</color>
+    <color name="colorPrimaryTextThemeTwo">#DDE0E0</color>
+    <color name="colorSecondaryTextThemeTwo">#757575</color>
+    <color name="colorDividerThemeTwo">#444442</color>
+
+    <color name="colorPrimaryThemeOne">#FFFFFF</color>
+    <color name="colorPrimaryDarkThemeOne">#B7302D</color>
+    <color name="colorAccentThemeOne">#B7302D</color>
+    <color name="fadedColorAccentThemeOne">#66B7302D</color>
+    <color name="colorBackgroundThemeOne">#EFEFEF</color>
+    <color name="colorPrimaryTextThemeOne">#283D56</color>
+    <color name="colorSecondaryTextThemeOne">#A0AAB7</color>
+    <color name="colorDividerThemeOne">#EFEFEF</color>
+
+</resources>
