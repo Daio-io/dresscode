@@ -3,16 +3,23 @@ jdk: oraclejdk8
 
 android:
   components:
-    - tools
-    - platform-tools
-    - tools
-    - build-tools-28.0.0
-    - build-tools-28.0.1
-    - build-tools-28.0.2
-    - android-28
+  - tools
+  - platform-tools
+  - tools
+  - build-tools-28.0.0
+  - build-tools-28.0.1
+  - build-tools-28.0.2
+  - android-28
+  - $ANDROID_TARGET
   licenses:
   - android-sdk-preview-license-.+
   - android-sdk-license-.+
   - google-gdk-license-.+
 
-script:  ./gradlew dresscode:build dresscode:install dresscode:detektCheck
+  before_script:
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
+script:  ./gradlew build install dresscode:detektCheck dresscodetests:connectedCheck dresscodetests:test

@@ -63,6 +63,9 @@ private fun checkDressCode(value: String) {
 fun Application.declareDressCode(
     vararg dressCodes: DressCode
 ) {
+    if(::availableDressCodes.isInitialized) {
+        throw DressCodeAlreadyInitialisedException("declareDressCode called more than once")
+    }
 
     availableDressCodes = ArrayMap<String, DressCode>(dressCodes.size).apply {
         dressCodes.forEach {
