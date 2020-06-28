@@ -4,3 +4,4 @@ import kotlin.RuntimeException
 
 class DressCodeNotRegisteredException(message: String) : RuntimeException(message)
 class DressCodeAlreadyInitialisedException(message: String) : RuntimeException(message)
+class DressCodeTypeNotDefinedException(message: String) : IllegalStateException(message)

@@ -5,23 +5,34 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.ArrayMap
+import daio.io.dresscode.theming.ThemeType
+import daio.io.dresscode.theming.Unknown
+import daio.io.dresscode.theming.Light
+import daio.io.dresscode.theming.Dark
+import daio.io.dresscode.theming.currentTheme
+import daio.io.dresscode.theming.resetTheme
 import kotlin.reflect.KClass
 
 internal val activities = ArrayMap<KClass<out Activity>, String>()
-private lateinit var availableDressCodes: ArrayMap<String, DressCode>
+internal lateinit var availableDressCodes: ArrayMap<String, DressCode>
 internal lateinit var currentDressCode: String
 
-private lateinit var themePreferences: SharedPreferences
+internal lateinit var themePreferences: SharedPreferences
 private const val PREFS_NAME = "io.daio.dresscode.prefs"
 private const val PREFS_KEY = "io.daio.dresscode.currentdresscode"
+internal const val AUTO_THEME_KEY = "io.daio.dresscode.autotheme"
+internal const val DARK_THEME_KEY = "io.daio.dresscode.darktheme"
+internal const val LIGHT_THEME_KEY = "io.daio.dresscode.lighttheme"
 
 /**
  * @param name [String] - DressCode name
  * @param themeId @StyleRes [Int] - Resource id for the theme declared in your styles.xml
+ * @param type[ThemeType] - The theme style type [Light], [Dark] or [Unknown]. Defaults to [Unknown] if not set.
  */
 data class DressCode(
     val name: String,
-    val themeId: Int
+    val themeId: Int,
+    val type: ThemeType = Unknown
 )
 
 /**
@@ -35,20 +46,35 @@ data class DressCode(
 var Activity.dressCodeStyleId: Int
     get() = availableDressCodes[currentDressCode]?.themeId ?: -1
     set(value) {
-        val resourceNameKey = resources.getResourceEntryName(value)
-        checkDressCode(resourceNameKey)
-        if (currentDressCode == resourceNameKey) return
-        currentDressCode = resourceNameKey
-        themePreferences.edit().putString(PREFS_KEY, resourceNameKey).apply()
-        recreate()
+        if (themePreferences.getBoolean(AUTO_THEME_KEY, false))
+            throw IllegalStateException("You can not set theme when in auto mode. Disable AutoDark mode")
+
+        setDressCode(value)
     }
 
-private fun checkDressCode(value: String) {
-    if (availableDressCodes[value] == null) {
-        throw DressCodeNotRegisteredException("Dress Code $value does not exist")
+var Activity.dressCodeAutoDarkEnabled: Boolean
+    get() = themePreferences.getBoolean(AUTO_THEME_KEY, false)
+    set(value) {
+        if (value) checkAutoSupport()
+        themePreferences.edit().putBoolean(AUTO_THEME_KEY, value).apply()
+        resetTheme(value)
     }
+
+fun checkAutoSupport() {
+    val noSupport = availableDressCodes.values.all { it.type == Unknown }
+    if (noSupport)
+        throw DressCodeTypeNotDefinedException("Auto mode not possible. Make " +
+            "sure to define DressCode.types when initialising.")
 }
 
+internal fun Activity.setDressCode(styleId: Int) {
+    val resourceNameKey = resources.getResourceEntryName(styleId)
+    checkDressCode(resourceNameKey)
+    if (currentDressCode == resourceNameKey) return
+    currentDressCode = resourceNameKey
+    themePreferences.edit().putString(PREFS_KEY, resourceNameKey).apply()
+    recreate()
+}
 
 /**
  * To declareDressCode your app with DressCodes you need to call [declareDressCode] from your Application class.
@@ -63,7 +89,7 @@ private fun checkDressCode(value: String) {
 fun Application.declareDressCode(
     vararg dressCodes: DressCode
 ) {
-    if(::availableDressCodes.isInitialized) {
+    if (::availableDressCodes.isInitialized) {
         throw DressCodeAlreadyInitialisedException("declareDressCode called more than once")
     }
 
@@ -75,8 +101,8 @@ fun Application.declareDressCode(
     }
 
     themePreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    currentDressCode = themePreferences.getString(PREFS_KEY, null) ?:
-            resources.getResourceEntryName(dressCodes[0].themeId)
+    currentDressCode = themePreferences.getString(PREFS_KEY, null)
+        ?: resources.getResourceEntryName(dressCodes[0].themeId)
 
     registerActivityLifecycleCallbacks(LifeCycleListener())
 }
@@ -87,10 +113,12 @@ fun Application.declareDressCode(
  * applies the new theme.
  */
 fun Activity.matchDressCode() {
-    val theme = availableDressCodes[currentDressCode]?.themeId
-        ?: availableDressCodes.valueAt(0).themeId
-
-    setTheme(theme)
+    setTheme(currentTheme)
     activities[this::class] = currentDressCode
 }
 
+private fun checkDressCode(value: String) {
+    if (availableDressCodes[value] == null) {
+        throw DressCodeNotRegisteredException("Dress Code $value does not exist")
+    }
+}
