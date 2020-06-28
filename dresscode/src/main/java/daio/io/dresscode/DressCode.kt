@@ -46,9 +46,7 @@ data class DressCode(
 var Activity.dressCodeStyleId: Int
     get() = availableDressCodes[currentDressCode]?.themeId ?: -1
     set(value) {
-        if (themePreferences.getBoolean(AUTO_THEME_KEY, false))
-            throw IllegalStateException("You can not set theme when in auto mode. Disable AutoDark mode")
-
+        themePreferences.edit().putBoolean(AUTO_THEME_KEY, false).apply()
         setDressCode(value)
     }
 
@@ -63,8 +61,10 @@ var Activity.dressCodeAutoDarkEnabled: Boolean
 fun checkAutoSupport() {
     val noSupport = availableDressCodes.values.all { it.type == Unknown }
     if (noSupport)
-        throw DressCodeTypeNotDefinedException("Auto mode not possible. Make " +
-            "sure to define DressCode.types when initialising.")
+        throw DressCodeTypeNotDefinedException(
+            "Auto mode not possible. Make " +
+                "sure to define DressCode.types when initialising."
+        )
 }
 
 internal fun Activity.setDressCode(styleId: Int) {
